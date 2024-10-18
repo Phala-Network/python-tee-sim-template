@@ -8,12 +8,11 @@ endpoint = 'http://host.docker.internal:8090'
 
 @app.get("/")
 async def root():
-    client = AsyncTappdClient(endpoint)
+    client = AsyncTappdClient()
     deriveKey = await client.derive_key('/', 'test')
     assert isinstance(deriveKey, DeriveKeyResponse)
     asBytes = deriveKey.toBytes()
     assert isinstance(asBytes, bytes)
-    asBytes = deriveKey.toBytes(32)
-    client = AsyncTappdClient(endpoint)
+    limitedSize = deriveKey.toBytes(32)
     tdxQuote = await client.tdx_quote('test')
-    return {"deriveKey": asBytes, "tdxQuote": tdxQuote}
+    return {"deriveKey": asBytes.hex(), "derive_32bytes": limitedSize.hex(), "tdxQuote": tdxQuote}
