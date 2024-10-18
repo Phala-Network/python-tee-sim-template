@@ -13,12 +13,12 @@ docker run --rm -p 8090:8090 phalanetwork/tappd-simulator:latest
 2. Build the python docker container:
 
 ```bash
-docker build -t python-dstack-template .
+docker build -t python-dstack-template:latest .
 ```
 
 3. Run the docker container:
 
 ```bash
-docker run --rm -p 3000:3000 -e DSTACK_SIMULATOR_ENDPOINT='http://host.docker.internal:8090' [python-docker-image-hash]
+docker run --rm -p 3000:3000 python-dstack-template:latest
 ```
 
